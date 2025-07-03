@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Relatório de Movimento de Caixa{% endblock %}
+{% block content %}
+
+<div class="form-container">
+
+  <h2 class="mt-4">Relatório de Movimento de Caixa</h2>
+
+  <form method="get" class="filter-form">
+    {{ form.as_p }} <br>
+    <button type="submit" class="btn">Filtrar</button>
+  </form> <br>
+
+  {% if results %}
+    <h4>Total de Saídas: {{ total_count }}</h4>
+    <h4>Total Arrecadado: R$ {{ total_value }}</h4> <br>
+
+    <h5 class="mt-4">Totais por Tipo de Pagamento:</h5>
+    <ul>
+      {% for tipo, dados in total_by_payment.items %}
+        <li>{{ tipo }} — R$ {{ dados.valor }} ({{ dados.qtd }} saída{{ dados.qtd|pluralize }})</li>
+      {% endfor %}
+    </ul> <br>
+
+    <div class="table-container">
+      <table class="table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Placa</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Valor</th>
+            <th>Pagamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in results %}
+          <tr>
+            <td>{{ record.entryRecord.plate }}</td>
+            <td>{{ record.entryRecord.entryDate|date:"d/m/Y H:i" }}</td>
+            <td>{{ record.exitDate|date:"d/m/Y H:i" }}</td>
+            <td>R$ {{ record.finalValue }}</td>
+            <td>{{ record.paymentType.description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  {% elif form.is_bound %}
+    <p>Nenhum registro encontrado nesse período.</p>
+  {% endif %}
+
+</div>
+
+{% endblock %}

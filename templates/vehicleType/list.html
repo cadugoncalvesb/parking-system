@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Lista de Tipos de Veículos {% endblock %}
+{% block content %}
+
+<div class="main-content">
+
+  <h1>Lista de Tipos de Veículos</h1>
+
+  <a href="{% url 'vehicletype-create' %}" class="btn mb-3">Criar Novo</a>
+
+  {% if vehicle_types %}
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Valor (R$)</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vt in vehicle_types %}
+            <tr>
+              <td>{{ vt.category }}</td>
+              <td>{{ vt.valuePerVehicle }}</td>
+              <td>
+                <a href="{% url 'vehicletype-update' vt.pk %}" class="btn btn-sm" style="background:#4caf50; margin-right:0.5rem;">Editar</a>
+                <a href="{% url 'vehicletype-delete' vt.pk %}" class="btn btn-sm" style="background:#e53935;">Excluir</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>Nenhum tipo de veículo cadastrado.</p>
+  {% endif %}
+
+</div>
+
+{% endblock %}

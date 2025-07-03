@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Registrar Entrada {% endblock %}
+{% block content %}
+
+<div class="layout">
+
+  <main class="main-content">
+    <h1>Registrar Entrada de Veículo</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      
+      <label for="id_plate">Placa do veículo:</label>
+      {{ form.plate }}
+        <br>
+      <label for="id_vehicleType">Tipo de veículo:</label>
+      {{ form.vehicleType }} <br><br>
+    
+      <button class="btn" type="submit">Salvar</button>
+      
+    </form>
+    <br>
+    <a class="button-link" href="{% url 'entryrecord-list' %}">Voltar para a lista</a>
+  </main>
+
+</div>
+
+{% endblock %}

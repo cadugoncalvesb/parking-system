@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Estacionamento {% endblock %}
+{% block content %}
+     <div class="layout">
+
+        <main class="main-content">
+            <h1>Sistema de Estacionamento</h1>
+
+            <div class="cards">
+                <div class="card">
+                    <h2>{{ total_vagas }}</h2>
+                    <p>Vagas Totais</p>
+                </div>
+                <div class="card">
+                    <h2>{{ vagas_ocupadas }}</h2>
+                    <p>Vagas Ocupadas</p>
+                </div>
+                <div class="card">
+                    <h2>{{ vagas_disponiveis }}</h2>
+                    <p>Vagas Disponíveis</p>
+                </div>
+            </div>
+
+            <div class="btn-new-entry-container text-center">
+                {% if vagas_disponiveis > 0 %}
+                    <a  href="{% url 'entryrecord-create' %}"
+                        class="btn btn-success btn-sm" style="background:#4caf50; margin-right:0.5rem;">
+                        + Nova Entrada
+                    </a>
+                {% else %}
+                    <a  class="btn btn-secondary btn-sm disabled"
+                        role="button"
+                        aria-disabled="true" style="background:#9e9e9e; margin-right:0.5rem;">
+                        + Nova Entrada
+                    </a>
+                    <p class="text-muted small mt-1 mb-0">
+                        Estacionamento cheio no momento
+                    </p>
+                {% endif %}
+            </div>
+
+            <h2 class="table-title">Veículos Estacionados</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Modelo</th>
+                            <th>Data de Entrada</th>
+                            <th>Hora de Entrada</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if exit_records %}
+                            {% for entry in exit_records %}
+                            <tr>
+                                <td>{{ entry.plate }}</td>
+                                <td>{{ entry.vehicleType.category }}</td>
+                                <td>{{ entry.entryDate|date:"d/m/Y" }}</td>
+                                <td>{{ entry.entryDate|date:"H:i" }}</td>
+                                <td><a href="{% url 'exitrecord-confirmar' entry.pk %}" class="btn btn-sm" style="background:#e53935;; margin-right:0.5rem;">Registrar Saída<a></a></td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Nenhuma entrada pendente de saída.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+{% endblock %}

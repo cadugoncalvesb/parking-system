@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} Veículos no Estacionamento {% endblock %}
+{% block content %}
+
+<h1>Veículos no Estacionamento</h1>
+
+<div class="table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Veículo</th>
+            <th>Placa</th>
+            <th>Entrada</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if exit_records %}
+            {% for entry in exit_records %}
+            <tr>
+                <td>{{ entry.vehicleType.category }}</td>
+                <td>{{ entry.plate }}</td>
+                <td>{{ entry.entryDate|date:"d/m/Y H:i" }}</td>
+                <td><a href="{% url 'exitrecord-confirmar' entry.pk %}" class="btn btn-sm" style="background:#e53935;; margin-right:0.5rem;">Registrar Saída<a></a></td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="4">Nenhuma entrada pendente de saída.</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+</div>
+
+<a href="{% url 'entryrecord-list' %}">Voltar à lista completa</a>
+{% endblock %}

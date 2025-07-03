@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} Registrar Saída {% endblock %}
+{% block content %}
+
+<h1>Confirmar Saída</h1>
+
+<p><strong>Placa:</strong> {{ entry.plate }}</p>
+<p><strong>Categoria: </strong> {{entry.vehicleType.category}}</p>
+<p><strong>Data de entrada:</strong> {{ entry.entryDate|date:"d/m/Y H:i" }}</p>
+<p><strong>Valor a pagar:</strong> R$ {{ valor }}</p>
+
+<form method="post" action="{% url 'exitrecord-create' entry.id %}">
+    {% csrf_token %}
+    <strong><label for="pagamento">Forma de Pagamento:</label></strong>
+    <select name="paymentType" required>
+        {% for tipo in formas_pagamento %}
+            <option value="{{ tipo.id }}">{{ tipo.description }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button class="btn" type="submit">Confirmar e Registrar Saída</button>
+</form>
+
+<a href="{% url 'exitrecord-list' %}">Cancelar</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Cadastrar Tipos de Veículos {% endblock %}
+{% block content %}
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <h1>Cadastrar Novo Tipo de Veículo</h1>
+
+  {% for field in form %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+
+    {% if field.errors %}
+      <ul class="errorlist">
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+
+  <br><br>
+
+  <button type="submit" class="btn">Salvar</button>
+
+  <a href="{% url 'vehicletype-list' %}" class="btn-link">Voltar para a lista</a>
+</form>
+
+{% endblock %}

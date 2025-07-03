@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Entradas do Dia {% endblock %}
+{% load tz %}
+{% block content %}
+
+<div class="layout">
+
+  <main class="main-content">
+    <h1>Registros de Entrada</h1>
+
+    {% if entry_records %}
+      {% regroup entry_records by entryTime.date as entries_by_day %}
+
+      {% for group in entries_by_day %}
+        <div class="content-box">
+          <h2>{{ group.grouper|date:"d/m/Y" }}</h2>
+          <ul>
+            {% for record in group.list %}
+              <li>
+                <strong>Placa:</strong> {{ record.plate|upper }} |
+                <strong>Tipo:</strong> {{ record.vehicleType }} |
+                <strong>Data e hora:</strong> {{ record.entryDate|date:"d/m/Y H:i:s" }} –
+                <a href="{% url 'entryrecord-update' record.pk %}">Editar</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>Nenhuma entrada registrada.</p>
+    {% endif %}
+
+    <br>
+    <a class="button-link" href="{% url 'entryrecord-create' %}">Registrar nova entrada</a>
+  </main>
+
+</div>
+
+{% endblock %}

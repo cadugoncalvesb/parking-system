@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Sistema de Estacionamento{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h2 class="sidebar-title">
+        <a href="{% url 'home' %}" class="link_home">
+          Menu
+        </a>
+      </h2>
+      <ul class="menu-links">
+        <li><a href="{% url 'vehicletype-list' %}">Tipos de Veículo</a></li>
+        <li><a href="{% url 'entryrecord-create' %}">Nova Entrada</a></li>
+        <li><a href="{% url 'exitrecord-list' %}">Saídas</a></li>
+        <li><a href="{% url 'relatorio-caixa' %}">Relatório de Caixa</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+</body>
+</html>

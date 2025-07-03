@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Excluir Tipo de Veículo {% endblock %}
+{% block content %}
+
+    <h1>Excluir Tipo de Veículo</h1>
+
+    <p>Tem certeza de que deseja excluir o tipo de veículo: <strong>{{ object.category }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sim, excluir</button>
+        <a href="{% url 'vehicletype-list' %}">Cancelar</a>
+    </form>
+
+</body>
+</html>
+
+{% endblock %}
