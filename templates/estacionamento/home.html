@@ -21,22 +21,25 @@
                 </div>
             </div>
 
-            <div class="btn-new-entry-container text-center">
-                {% if vagas_disponiveis > 0 %}
-                    <a  href="{% url 'entryrecord-create' %}"
-                        class="btn btn-success btn-sm" style="background:#4caf50; margin-right:0.5rem;">
-                        + Nova Entrada
-                    </a>
-                {% else %}
-                    <a  class="btn btn-secondary btn-sm disabled"
-                        role="button"
-                        aria-disabled="true" style="background:#9e9e9e; margin-right:0.5rem;">
-                        + Nova Entrada
-                    </a>
-                    <p class="text-muted small mt-1 mb-0">
-                        Estacionamento cheio no momento
-                    </p>
-                {% endif %}
+            <div class="btn-new-entry-container text-center" style="display: flex; flex:auto; justify-content: space-between; text-align: center;">
+                <div>
+                    {% if vagas_disponiveis > 0 %}
+                        <a  href="{% url 'entryrecord-create' %}"
+                            class="btn btn-success btn-sm" style="background:#4caf50; margin-right:0.5rem; padding: 0.5rem 1.5rem; font-weight: 600;">
+                            + Nova Entrada
+                        </a>
+                    {% else %}
+                        <a  class="btn btn-secondary btn-sm disabled"
+                            role="button"
+                            aria-disabled="true" style="background:#9e9e9e; margin-right:0.5rem;">
+                            + Nova Entrada
+                        </a>
+                        <p class="text-muted small mt-1 mb-0">
+                            Estacionamento cheio no momento
+                        </p>
+                    {% endif %}
+                </div>
+                 <a href="{% url 'entryrecord-list' %}" class="btn"> Histórico de entradas</a>
             </div>
 
             <h2 class="table-title">Veículos Estacionados</h2>
