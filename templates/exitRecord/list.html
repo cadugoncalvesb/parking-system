@@ -31,5 +31,22 @@
 </table>
 </div>
 
-<a href="{% url 'entryrecord-list' %}">Voltar à lista completa</a>
+<br>
+
+<div>
+    <a href="{% url 'entryrecord-list' %}" >
+        <button class="btn" style="color: white; text-decoration: none; text-decoration: none;">
+        Histórico
+        </button>
+    </a>
+
+    <a href="{% url 'home' %}">
+        <button class="btn-outline-blue" style="margin-left: 0.4em; margin: 0.6em;">
+            Voltar
+        </button>
+    </a>
+</div>
+<br>
+
+
 {% endblock %}

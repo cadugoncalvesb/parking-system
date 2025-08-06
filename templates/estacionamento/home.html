@@ -25,7 +25,7 @@
                 <div>
                     {% if vagas_disponiveis > 0 %}
                         <a  href="{% url 'entryrecord-create' %}"
-                            class="btn btn-success btn-sm" style="background:#4caf50; margin-right:0.5rem; padding: 0.5rem 1.5rem; font-weight: 600;">
+                            class="btn btn-success btn-sm" style="background:#4caf50; margin-right:0.5rem; padding: 0.5rem 1.5rem; font-weight: 600;  font-size: 0.95rem;">
                             + Nova Entrada
                         </a>
                     {% else %}
@@ -39,7 +39,7 @@
                         </p>
                     {% endif %}
                 </div>
-                 <a href="{% url 'entryrecord-list' %}" class="btn"> Histórico de entradas</a>
+                 <a href="{% url 'entryrecord-list' %}" class="btn-outline-blue"> Histórico de entradas</a>
             </div>
 
             <h2 class="table-title">Veículos Estacionados</h2>

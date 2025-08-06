@@ -2,29 +2,53 @@
 {% block title %} Cadastrar Tipos de Veículos {% endblock %}
 {% block content %}
 
-<form method="post" novalidate>
-  {% csrf_token %}
+<div class="form-card-container">
+  <div class="form-card">
 
-  <h1>Cadastrar Novo Tipo de Veículo</h1>
+    <h1>
+      {% if form.instance.pk %}
+        Atualizar Tipo de Veículo
+      {% else %}
+        Cadastrar Novo Tipo de Veículo
+      {% endif %}
+    </h1>
 
-  {% for field in form %}
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field }}
+    <form method="post" novalidate>
+      {% csrf_token %}
 
-    {% if field.errors %}
-      <ul class="errorlist">
-        {% for error in field.errors %}
-          <li>{{ error }}</li>
+      <div class="form-group">
+
+        {% for field in form %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+
+          {% if field.errors %}
+            <ul class="errorlist">
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
 
-  <br><br>
+      </div>
 
-  <button type="submit" class="btn">Salvar</button>
+      <br><br>
 
-  <a href="{% url 'vehicletype-list' %}" class="btn-link">Voltar para a lista</a>
-</form>
+      <div class="form-actions">
+        <a href="{% url 'vehicletype-list' %}" style="color: white;  text-decoration: none;">
+          <button  class="btn-outline-blue" type="button">
+            Voltar
+          </button>
+        </a>
+
+        <button type="submit" class="btn">Salvar</button>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+
 
 {% endblock %}

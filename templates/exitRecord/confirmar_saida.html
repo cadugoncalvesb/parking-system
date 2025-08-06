@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
-{% block title %} Registrar Saída {% endblock %}
+{% block title %}Registrar Saída{% endblock %}
+
 {% block content %}
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
 
-<h1>Confirmar Saída</h1>
+  <h1 style="margin-bottom: 20px;">Confirmar Saída</h1>
 
-<p><strong>Placa:</strong> {{ entry.plate }}</p>
-<p><strong>Categoria: </strong> {{entry.vehicleType.category}}</p>
-<p><strong>Data de entrada:</strong> {{ entry.entryDate|date:"d/m/Y H:i" }}</p>
-<p><strong>Valor a pagar:</strong> R$ {{ valor }}</p>
+  <div class="record-info" style="margin-bottom: 20px;">
+    <p><strong>Placa:</strong> {{ entry.plate|upper }}</p>
+    <p><strong>Categoria:</strong> {{ entry.vehicleType.category }}</p>
+    <p><strong>Data de entrada:</strong> {{ entry.entryDate|date:"d/m/Y H:i" }}</p>
+    <p><strong>Valor a pagar:</strong> R$ {{ valor }}</p>
+  </div>
 
-<form method="post" action="{% url 'exitrecord-create' entry.id %}">
+  <form method="post" action="{% url 'exitrecord-create' entry.id %}" class="form" style="margin-bottom: 20px;">
     {% csrf_token %}
-    <strong><label for="pagamento">Forma de Pagamento:</label></strong>
-    <select name="paymentType" required>
-        {% for tipo in formas_pagamento %}
-            <option value="{{ tipo.id }}">{{ tipo.description }}</option>
-        {% endfor %}
-    </select>
-    <br><br>
-    <button class="btn" type="submit">Confirmar e Registrar Saída</button>
-</form>
 
-<a href="{% url 'exitrecord-list' %}">Cancelar</a>
+    <div class="form-group" style="margin-bottom: 15px;">
+      <label for="pagamento"><strong>Forma de Pagamento:</strong></label><br>
+      <select name="paymentType" id="pagamento" required style="width: 100%; padding: 8px;">
+        {% for tipo in formas_pagamento %}
+          <option value="{{ tipo.id }}">{{ tipo.description }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirmar e Registrar Saída</button>
+    <a href="{% url 'exitrecord-list' %}" class="btn-outline-blue " style="margin-left: 10px;">Cancelar</a>
+  </form>
+
+</div>
 {% endblock %}

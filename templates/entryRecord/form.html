@@ -2,27 +2,34 @@
 {% block title %} Registrar Entrada {% endblock %}
 {% block content %}
 
-<div class="layout">
+<div class="form-card-container">
+  <div class="form-card">
 
-  <main class="main-content">
     <h1>Registrar Entrada de Veículo</h1>
 
-    <form method="post">
+    <form method="post" novalidate>
       {% csrf_token %}
-      
-      <label for="id_plate">Placa do veículo:</label>
-      {{ form.plate }}
-        <br>
-      <label for="id_vehicleType">Tipo de veículo:</label>
-      {{ form.vehicleType }} <br><br>
-    
-      <button class="btn" type="submit">Salvar</button>
-      
-    </form>
-    <br>
-    <a class="button-link" href="{% url 'entryrecord-list' %}">Voltar para a lista</a>
-  </main>
 
+      <div class="form-group">
+        <label for="id_plate">Placa do veículo:</label>
+        {{ form.plate }}
+
+        <label for="id_vehicleType">Tipo de veículo:</label>
+        {{ form.vehicleType }}
+      </div>
+
+      <br><br>
+
+      <div class="form-actions">
+        <a href="{% url 'home' %}" style="color: white; text-decoration: none;">
+          <button class="btn-outline-blue" type="button">Voltar</button>
+        </a>
+
+        <button class="btn" type="submit">Salvar</button>
+      </div>
+    </form>
+
+  </div>
 </div>
 
 {% endblock %}

@@ -1,29 +1,44 @@
 {% extends 'base.html' %}
-{% block title %} Entradas do Dia {% endblock %}
+{% block title %}Entradas do Dia{% endblock %}
 {% load tz %}
 {% block content %}
 
 <div class="layout">
-
   <main class="main-content">
-    <h1>Registros de Entrada</h1>
+    <h1>Histórico de Entradas de Todos</h1>
+
+    <!-- Formulário de busca por placa -->
+    <form method="GET" class="mb-3" style="margin-bottom: 20px;">
+      <input
+        type="text"
+        name="q"
+        placeholder="Buscar por placa"
+        maxlength="7"
+        value="{{ request.GET.placa|default_if_none:'' }}"
+        class="form-control"
+        style="padding: 8px; width: 250px; max-width: 100%; border: 1px solid #ccc; border-radius: 5px;"
+      >
+      <button type="submit" class="btn-outline-blue" style="margin-left: 10px;">Buscar</button>
+      
+    </form>
 
     {% if entry_records %}
       {% regroup entry_records by entryTime.date as entries_by_day %}
 
       {% for group in entries_by_day %}
-        <div class="content-box">
-          <h2>{{ group.grouper|date:"d/m/Y" }}</h2>
-          <ul>
-            {% for record in group.list %}
-              <li>
-                <strong>Placa:</strong> {{ record.plate|upper }} |
-                <strong>Tipo:</strong> {{ record.vehicleType }} |
-                <strong>Data e hora:</strong> {{ record.entryDate|date:"d/m/Y H:i:s" }} –
-                <a href="{% url 'entryrecord-update' record.pk %}">Editar</a>
-              </li>
-            {% endfor %}
-          </ul>
+        <div style="margin-bottom: 30px;">
+          <h2 style="margin-bottom: 10px;">{{ group.grouper|date:"d/m/Y" }}</h2>
+          
+          {% for record in group.list %}
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <p><strong>Placa:</strong> {{ record.plate|upper }}</p>
+                <p><strong>Tipo:</strong> {{ record.vehicleType }}</p>
+                <p><strong>Data e hora:</strong> {{ record.entryDate|date:"d/m/Y H:i:s" }}</p>
+              </div>
+              <a href="{% url 'entryrecord-update' record.pk %}" class="btn-outline-blue btn-sm">Editar</a>
+            </div>
+          {% endfor %}
         </div>
       {% endfor %}
     {% else %}
@@ -31,9 +46,8 @@
     {% endif %}
 
     <br>
-    <a class="button-link" href="{% url 'entryrecord-create' %}">Registrar nova entrada</a>
+    
   </main>
-
 </div>
 
 {% endblock %}

@@ -2,17 +2,28 @@
 {% block title %} Excluir Tipo de Veículo {% endblock %}
 {% block content %}
 
+<div class="form-card-container">
+  <div class="form-card">
+
     <h1>Excluir Tipo de Veículo</h1>
 
     <p>Tem certeza de que deseja excluir o tipo de veículo: <strong>{{ object.category }}</strong>?</p>
 
     <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sim, excluir</button>
-        <a href="{% url 'vehicletype-list' %}">Cancelar</a>
+      {% csrf_token %}
+
+      <div class="form-actions">
+        
+        <a href="{% url 'vehicletype-list' %}">
+          <button class="btn-outline-blue" type="button">Cancelar</button>
+        </a>
+
+        <button class="btn btn-danger" type="submit" style="background-color: red;">Sim, excluir</button>
+        
+      </div>
     </form>
 
-</body>
-</html>
+  </div>
+</div>
 
 {% endblock %}
