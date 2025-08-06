@@ -6,22 +6,42 @@
   <title>{% block title %}Sistema de Estacionamento{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
   <div class="layout">
-    <aside class="sidebar">
-      <h2 class="sidebar-title">
+    <aside class="sidebar" style="color: white;">
+      <h2 class="menu-home">
         <a href="{% url 'home' %}" class="link_home">
-          Home
+          <img src="{% static 'icons/house.svg' %}" alt="Home" width="24" height="24" class="icon-style"> Home
         </a>
       </h2>
+
       <ul class="menu-links">
-        <li><a href="{% url 'vehicletype-list' %}">Tipos de Veículos</a></li>
-        <li><a href="{% url 'entryrecord-create' %}">Nova Entrada</a></li>
-        <li><a href="{% url 'exitrecord-list' %}">Saídas</a></li>
-        <li><a href="{% url 'relatorio-caixa' %}">Relatório de Caixa</a></li>
+        <li>
+          <a href="{% url 'vehicletype-list' %}">
+            <img src="{% static 'icons/car.svg' %}" alt="Tipos de Veículos" class="icon-style"> Tipos de Veículos
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'entryrecord-create' %}">
+            <img src="{% static 'icons/log-in.svg' %}" alt="Nova Entrada" class="icon-style"> Nova Entrada
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'exitrecord-list' %}">
+            <img src="{% static 'icons/log-out.svg' %}" alt="Saídas" class="icon-style"> Saídas
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'relatorio-caixa' %}">
+            <img src="{% static 'icons/money.svg' %}" alt="Relatório de Caixa" class="icon-style"> Relatório de Caixa
+          </a>
+        </li>
       </ul>
+
     </aside>
 
     <main class="main-content">
